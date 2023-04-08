@@ -36,13 +36,13 @@ global.onlineUser = new Map();
 
 
 function removerOffliner(idToRemove,fromArry){
-    console.log(fromArry)
+   
 const ind = fromArry.indexOf( idToRemove )
 
 if (ind > -1) {
     fromArry.splice(ind, 1);
   }else{
-    console.log("not herp");
+   
   }
   return fromArry;
 }
@@ -57,7 +57,7 @@ function showOnlineUsers(socket,arryToShow,onlineUser) {
 
 io.on("connect",async (socket)=>{
     global.chatSocket = socket;
-   console.log("i an connected");
+  
     socket.on("addUser",(userId)=>{
         onlineUser.set(userId,socket.id)
     
@@ -75,7 +75,7 @@ io.on("connect",async (socket)=>{
 
         })
         } catch (error) {
-           console.log(error) 
+            console.log(error)
         }
    
     
@@ -85,13 +85,12 @@ io.on("connect",async (socket)=>{
         socket.on("sendMsg",async (data)=>{
             try {
                 onlineUser.set(data.from,socket.id)
-            console.log(onlineUser.get(data.to))
+            
                 const sendUserSocket = await onlineUser.get(data.to)
-                console.log("sendUserSocket user working" )
-                console.log(sendUserSocket)
+        
                 if(sendUserSocket){
                     socket.to(sendUserSocket).emit("msgRecieve",data)
-                    console.log("reveies user working")
+                 
                   
                 } 
             } catch (error) {

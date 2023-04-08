@@ -41,7 +41,7 @@ background-size: cover;
   
 }
 @media (min-width: 501px) and (max-width: 800px) {
-  display: none;
+
 }
 }
 

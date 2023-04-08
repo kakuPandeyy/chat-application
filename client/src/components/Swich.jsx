@@ -16,7 +16,7 @@ const StyledSwich = styled.div`
 position: absolute;
 bottom: 15%;
 @media (min-width: 501px) and (max-width: 800px) {
-  display: none;
+ 
 }
 @media only screen and (max-width: 500px) {
 

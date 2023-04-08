@@ -24,8 +24,7 @@ const [selectedAvatar,setSelectedAvatar] = useState(undefined);
 const [file,setFile] = useState();
 const [customPic,setCustomPic] = useState(false);
 const [image, setImage] = useState()
-const [ik,setik]  = useState()
-const [two,setdo] = useState()
+
   const navigate = useNavigate();
 
 
@@ -33,14 +32,14 @@ const [two,setdo] = useState()
 
   async function handleProFile(e){
     try {
-      console.log("lmoej")
+    
     await setFile(e.target.files[0])
     setImage(URL.createObjectURL(e.target.files[0]));
  
    
 
     } catch (error) {
-      console.log(error)
+    
     }
     
 
@@ -106,8 +105,7 @@ const [two,setdo] = useState()
   image:avatar[selectedAvatar],
   custom:false
  } )
- setik(data.userData.avatarImage)
- setdo(data.setStatus)
+ 
     if (data.setStatus && data.userData.avatarImage) {
   
     await localStorage.setItem("chat-app-user",JSON.stringify(data.userData))
@@ -138,7 +136,7 @@ try{
   const data = [];
   for (let i = 0; i < 5; i++) {
    
-    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}/?apikey=G3RUrlnYSAiTLcG3RUrlnYSAiTLc`)
+    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}/?${process.env.REACT_APP_AVATAR_URL}`)
 
     const buffer = new Buffer(image.data)
    data.push(buffer.toString("base64"))
@@ -148,7 +146,7 @@ try{
 
   }
 }catch(ex){
-  console.log(ex)
+
 }
    
   }

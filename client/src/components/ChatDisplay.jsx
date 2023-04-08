@@ -1,22 +1,18 @@
-import React,{useEffect,useState,useRef} from 'react'
-import styled from 'styled-components'
+import React,{useEffect,useRef} from 'react'
+
 import StyleChatDisplay from '../style/chatCompStyle/StyleChatDisplay'
-import axios from 'axios'
+
 import {v4 as uuidv4} from "uuid";
-export default function ChatDisplay({contact,welcome,userThemeDark,currentUserId,msgDataStore}) {
+export default function ChatDisplay({msgDataStore}) {
 
 
   const bottomRef = useRef()
-  const scrollBtn = useRef()
+ 
   const scrollDown = ()=>{
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
     const myDiv = bottomRef.current
     myDiv.scrollTop = myDiv.scrollHeight;
     }
-
-//  useEffect(()=>{
-// console.log(msgDataStore)
-//  },[])
   
 
     useEffect(()=>{

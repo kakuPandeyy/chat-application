@@ -44,10 +44,7 @@ async function logOut(){
  
 
 }
-window.onbeforeunload = function(e) {
-  // socket.disconnect();
-  alert("bye")
-};
+
 
 useEffect(()=>{
  
@@ -79,7 +76,7 @@ try {
           navigate("/setAvatar")
          }
 } catch (error) {
-console.log(error)
+
  
 }
         }
@@ -129,7 +126,7 @@ if (currentUserId) {
     })
  
   }else{
- alert(" not find")
+
   }
 }
  },[currentUserId,renderOnline])
@@ -160,7 +157,7 @@ if (currentUserId) {
   <div className="tital-bar">
   <h2>chat</h2>
   <BiMenuAltRight className='threeDot'/>
-  {/* <input type="search"  placeholder='search your friend' onChange={ (e)=>{setSearchInput(e.target.value); }  } /> */}
+
   <Search setSearchInput={setSearchInput}/>
   </div>
 <div className="contact-list">

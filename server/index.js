@@ -24,9 +24,10 @@ app.use("/api/message",messageRoute)
 const server =  app.listen(process.env.PORT,()=>{
     console.log(`sever is runing on port ${process.env.PORT}`)
 })
+
 const io = socket(server,{
     cors:{
-        origin:`http://localhost:${process.env.PORT}`,
+        origin:process.env.CLIENT_URL,
         credentials:true
     }
 })

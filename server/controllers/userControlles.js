@@ -56,7 +56,7 @@ module.exports.login = async (req,res,next)=>{
   const isPasswordValid = await brcypt.compare(password,user.password)
 if(!isPasswordValid){
   return res.json({msg:"Incorrect password",status:false})
-  console.log(isPasswordValid)
+
  
 }
 

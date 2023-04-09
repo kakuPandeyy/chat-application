@@ -1,6 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
-import theme from '../style/theme';
 import SearchStyle from '../style/style-component/SearchStyle';
 export default function Search({setSearchInput}) {
   return (

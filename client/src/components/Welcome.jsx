@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import robo from "../assets/robot.gif"
 import RoboSty from '../style/style-component/RoboSty'
 export default function Welcome({currentUserName}) {

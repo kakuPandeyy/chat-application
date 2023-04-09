@@ -13,12 +13,7 @@ import Button from '../style/Button';
 function LogIn() {
   const navigate = useNavigate();
 
-// useEffect(
-//   ()=>{
-//  if (localStorage.getItem("chat-app-user")) {
-//   navigate("/")
-//  }
-//   },[])
+
 
   const [values,setValues] = useState({
     username:'',

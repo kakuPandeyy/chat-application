@@ -14,6 +14,7 @@ const Button = styled.button`
 
   &:hover{
     background-color: rgba(7, 251, 202, 0.6);
-    bottom: 4px;}
+    transition: 0.5s ease;
+    bottom: 2.5px;}
 `
 export default Button;

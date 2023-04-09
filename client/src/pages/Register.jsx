@@ -17,12 +17,7 @@ function Register() {
     password:'',
   confirmPassword:''
   })
-  // useEffect(
-  //   ()=>{
-  //  if (localStorage.getItem("chat-app-user")) {
-  //   navigate("/")
-  //  }
-  //   },[]);
+
 
   const toastOptions = {
   position: "bottom-right",

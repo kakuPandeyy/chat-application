@@ -34,9 +34,16 @@ border: 2px solid ${theme.color.pattern.themeBlue};
 
 .onlineIndicator{
 color:#ff5601e9;
-font-size:8rem;
-margin-right:2rem;
-/* box-shadow:1px 1px 1px #ff5601e9; */
+font-size:1.5rem;
+position:absolute;
+right:6px;
+@media (min-width: 501px) and (max-width: 800px) {
+  right:4px;
+  bottom:0.3px;
+  font-size:2.3rem;
+  color:#ff5601e9;
+}
+
 }
 
 color: white;

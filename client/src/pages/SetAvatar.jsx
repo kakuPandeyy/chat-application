@@ -90,7 +90,7 @@ const [image, setImage] = useState()
   
   await localStorage.setItem("chat-app-user",JSON.stringify(data.userData))
   await navigate("/")
-  alert("ok")
+
    }else{
     setProfilePic()
    }

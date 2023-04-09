@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import ProfileStyle from "../style/style-component/ProfileStyle";
 function Profile(props){
 

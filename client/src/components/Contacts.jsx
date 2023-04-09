@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {ThemeProvider} from 'styled-components';
 import theme from '../style/theme';
 import StyledContacts from '../style/StyledContacts';
@@ -12,9 +12,6 @@ function  justMe(){
 }
 justMe()
 
-useEffect(()=>{
-console.log(showOnline)
-},[])
 
 
   return (

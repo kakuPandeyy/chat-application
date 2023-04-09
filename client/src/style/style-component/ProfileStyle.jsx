@@ -1,4 +1,4 @@
-import theme from '../theme'
+
 import styled from 'styled-components'
 const ProfileStyle = styled.div`
     .profile-container{

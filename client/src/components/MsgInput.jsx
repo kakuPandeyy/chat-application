@@ -1,8 +1,7 @@
-import React,{useEffect, useState,useRef,useContext} from 'react'
-import styled from 'styled-components'
+import React,{useEffect, useState,useContext} from 'react'
+
 import { BsEmojiWink } from 'react-icons/bs'
 import {BsSend}  from 'react-icons/bs'
-import theme from '../style/theme'
 import axios from 'axios'
 import EmojiPicker from 'emoji-picker-react';
 import MsgInputStyle from "../style/style-component/MsgInputStyle"
@@ -28,7 +27,7 @@ export default function MsgInput({socket,userThemeDark,currentUserId,welcome,con
       })
      
       setmsgDataStore(msgData.data)
-      console.log(msgDataStore);
+
     }
   
    getChat()
@@ -46,7 +45,7 @@ export default function MsgInput({socket,userThemeDark,currentUserId,welcome,con
         await arrivalMsg.from===contact[welcome]._id&&
         reviceShow.push(arrivalMsg) 
         setmsgDataStore(reviceShow)
-       console.log(contact[welcome]._id  +"   " +arrivalMsg.To)
+     
       }
      
       reciveMsg()
@@ -81,7 +80,7 @@ const sendingMsg  = await axios.post(AddMsgRouter,{
   message:msg
 })
 if (sendingMsg) {
-  console.log(sendingMsg.data)
+
   setMsg("")
 }
 

@@ -91,7 +91,7 @@ io.on("connect",async (socket)=>{
         
                 if(sendUserSocket){
                     socket.to(sendUserSocket).emit("msgRecieve",data)
-                 
+                 console.log(data)
                   
                 } 
             } catch (error) {

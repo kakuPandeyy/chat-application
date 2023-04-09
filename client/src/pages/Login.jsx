@@ -1,5 +1,5 @@
 
-import React ,{ useEffect, useState } from 'react';
+import React ,{  useState } from 'react';
 import FormContainer from '../style/FromContainer';
 import logo from "../assets/logo.png";
 import { ToastContainer,toast } from 'react-toastify';

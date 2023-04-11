@@ -15,6 +15,7 @@ import AvatarStyle from '../style/AvatarStyle';
 
 export default function SetAvatar() {
 
+  
 
  const avatarApi = "https://api.multiavatar.com/";
 //  
@@ -127,16 +128,17 @@ useEffect(()=>{
  
   
 
-  fetchData()
+
   async function fetchData(){
 try{
   if (!localStorage.getItem("chat-app-user")) {
     navigate("/login")
   }
   const data = [];
+
   for (let i = 0; i < 5; i++) {
    
-    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}/?${process.env.REACT_APP_AVATAR_URL}`)
+    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}`)
 
     const buffer = new Buffer(image.data)
    data.push(buffer.toString("base64"))
@@ -145,12 +147,13 @@ try{
    
 
   }
+ 
 }catch(ex){
 
 }
    
   }
- 
+  fetchData()
 },[])
 
 

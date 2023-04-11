@@ -14,7 +14,7 @@ import {ReciveMsg} from "../pages/Chat"
 export default function MsgInput({socket,userThemeDark,currentUserId,welcome,contact,msgAndStore}) {
   const [msgDataStore,setmsgDataStore]= useState([])
 
-  const arrivalMsg = useContext(ReciveMsg)
+  const {arrivalMsg,contactHidden} = useContext(ReciveMsg)
 
 
 
@@ -41,19 +41,25 @@ export default function MsgInput({socket,userThemeDark,currentUserId,welcome,con
     const reciveMsg = async ()=>{
         const reviceShow = [...msgDataStore]
 
-        await  arrivalMsg&&
-        await arrivalMsg.from===contact[welcome]._id&&
-        reviceShow.push(arrivalMsg) 
-        setmsgDataStore(reviceShow)
-     
+  await  arrivalMsg&&
+
+  await arrivalMsg.from===contact[welcome]._id&&
+  reviceShow.push(arrivalMsg) 
+  setmsgDataStore(reviceShow)
+
+
+ 
+
+  
       }
      
       reciveMsg()
+      
     },[arrivalMsg])
 
-
-   
     msgAndStore(msgDataStore)
+   
+
 
     const [visiableEmo,setVisiableEmo] = useState(false)
     const [msg,setMsg]= useState('')
@@ -105,11 +111,11 @@ var message = msg;
 message += emoji.emoji;
 setMsg(message)
 
-console.log(msg)
+
 }
   return (
  
-    <MsgInputStyle  userThemeDark={userThemeDark} >
+    <MsgInputStyle  userThemeDark={userThemeDark} contactHidden={contactHidden} >
      
     <div className=' input-msg'>
 

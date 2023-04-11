@@ -1,8 +1,10 @@
 import theme from "./theme";
 import styled from "styled-components";
+
 //userthemdark
 //myProfile
 //currentuser
+//contactHidden
 const Conntainer = styled.div`
 background-color: ${props => props.userThemeDark? theme.color.back7 :theme.color.blue1 };
 height: 100vh;
@@ -19,7 +21,27 @@ display: flex;
 align-items: center;
 flex-direction: column;
 justify-content: center;
+@media only screen and (max-width: 500px) {
+  //test
+    /* display: none; */
+  
+   
+   top: 0%;
+   width: 100vw;
+   height: 2rem;
+   z-index: -10;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   height:100%;
+   /* openMenu */
 
+
+   ${props => props.openMenu&& `   z-index: 10;
+   backdrop-filter: blur(60px);
+   `}
+  
+}
 z-index: 10px;
 .logOut{
   cursor: pointer;
@@ -36,10 +58,7 @@ border-radius: 50%;
 background-image: url(${ props=> props.myProfile? props.currentUserImage :`data:image/svg+xml;base64,${props.currentUserImage}`});
 background-position: center;
 background-size: cover;
-@media only screen and (max-width: 500px) {
-    display: none;
-  
-}
+
 @media (min-width: 501px) and (max-width: 800px) {
 
 }
@@ -101,7 +120,9 @@ position: relative;
 background-color:${ props => props.userThemeDark? theme.color.back4 :theme.color.blue3 };
 border-radius: 3rem 5rem;
 @media only screen and (max-width: 500px) {
-  border-radius: 1rem;
+  border-radius: 0rem;
+  //test
+  ${props => props.contactHidden&& `display: none;`  }
 }
 padding: 1rem;
 overflow-y: scroll;
@@ -119,16 +140,33 @@ margin-top: 40px;
  flex-direction: column;
  text-align: center;
  gap: 1.7rem;
+ .menu{
+  display:none;
+ }
  @media only screen and (max-width: 500px) {
 
   flex-direction: row;
-
+  .menu{
+  height:2rem;
+  display:flex;
+  color:green;
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-weight:100px;
+  font-size:25px;
+  cursor: pointer;
+  ${props => props.openMenu&& `   z-index: 20;
+  
+   `}
+ }
 }
  h2{
   color: white;
- font-size: 2.5rem;
+ font-size: 3rem;
  align-self: flex-start;
  margin-left: 2px;
+ margin-top:2.5rem;
  @media only screen and (max-width: 500px) {
 font-size:1.4rem;
 align-self: flex-start;
@@ -173,12 +211,38 @@ transition: 0.6 ease-out;
   border-radius: 5rem 3rem;
   overflow-y: scroll;
   position: relative;
+ 
+.contactShower{
+
+
+display:none;
+@media screen and (max-width: 500px){
+
+  color:green;
+  position:fixed;
+  top:30px;
+left:0px;
+z-index:10;
+height:3rem;
+width:7%;
+ ${props => props.contactHidden &&`  display:flex; `  } 
+}
+}
+  
   &::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
 @media screen and (max-width: 500px){
   border-radius:0.5rem;
+  //test
+  /* position:fixed;
+  height:100%;
+  width:100%; */
+ ${props => props.contactHidden &&`position:fixed;
+  height:100%;
+  width:100%; `  } 
 }
 }
 
@@ -189,8 +253,3 @@ transition: 0.6 ease-out;
 export default Conntainer
 
 
-// for go to chat section from contact
-// .chat  display not  none
-//.contact section  visibility hidden
-// then make grid-template-columns: 0% 100%;
-//gap :0rem;

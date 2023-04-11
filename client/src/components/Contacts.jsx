@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import {ThemeProvider} from 'styled-components';
 import theme from '../style/theme';
 import StyledContacts from '../style/StyledContacts';
-import {RiRadioButtonLine} from 'react-icons/ri'
+import {RiRadioButtonLine} from 'react-icons/ri';
 
-export default function Contacts({contact,getSelected,userThemeDark,showOnline}) {
+export default function Contacts({contact,getSelected,userThemeDark,showOnline,openMenu}) {
   const [chatSelected,setChatSelected] = useState(undefined)
 
 function  justMe(){
+  //test
+  //0 replace by chatSelected
   getSelected(chatSelected)
 }
 justMe()
@@ -15,7 +17,7 @@ justMe()
 
 
   return (
-    <StyledContacts userThemeDark={userThemeDark} >
+    <StyledContacts userThemeDark={userThemeDark} openMenu={openMenu} >
       <ThemeProvider theme={theme}> 
  { contact.map(
   (contact,index)=>{

@@ -8,6 +8,10 @@ justify-content: center;
 align-items: center;
  background-color: #1d1d36;
  
+
+ @media only screen and (max-width:500px) {
+   overflow-y: scroll;
+}
 .log-btn{
   display: flex;
 justify-content: center;
@@ -52,7 +56,7 @@ form{
   background-color: rgba(8, 254, 225, 0.13);
  box-shadow: 0 0 4000px rgba(7, 251, 202, 0.6);
   padding: 3rem 5rem;
-  @media only screen and (max-width: 415px) {
+  @media only screen and (max-width:500px) {
     padding: 1.3rem 2.5rem;
 }
   h1{

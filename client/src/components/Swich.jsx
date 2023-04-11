@@ -15,13 +15,15 @@ export default function Swich({setuserThemeDark}) {
 const StyledSwich = styled.div`
 position: absolute;
 bottom: 15%;
+left: 15px;
 @media (min-width: 501px) and (max-width: 800px) {
  
 }
 @media only screen and (max-width: 500px) {
 
 /* for Contact show */
- display: none;
+bottom: 50%;
+margin-left:60%;
 }
 .switch {
   position: relative;

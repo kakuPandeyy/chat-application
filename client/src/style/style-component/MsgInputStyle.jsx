@@ -12,8 +12,15 @@ const MsgInputStyle = styled.div`
  
  position: fixed;
  left: 30%;
- bottom:2rem;
+ bottom:1.3rem;
  width: 70%;
+ /* test */
+ /* left: 6%;
+ bottom:0.8rem;
+ width: 94%; */
+ ${props => props.contactHidden &&`left: 6%;
+ bottom:0.8rem;
+ width: 94%; `  } 
 }
  position: fixed;
  bottom: 1.4rem;

@@ -1,11 +1,13 @@
-import React,{useEffect,useRef} from 'react'
+import React,{useEffect,useRef,useContext} from 'react'
 
 import StyleChatDisplay from '../style/chatCompStyle/StyleChatDisplay'
 
 import {v4 as uuidv4} from "uuid";
+import {ReciveMsg} from "../pages/Chat"
 export default function ChatDisplay({msgDataStore}) {
 
-
+  const {contactHidden} = useContext(ReciveMsg)
+ 
   const bottomRef = useRef()
  
   const scrollDown = ()=>{
@@ -17,10 +19,11 @@ export default function ChatDisplay({msgDataStore}) {
 
     useEffect(()=>{
       scrollDown()
+    
     },[msgDataStore])
 
   return (
-    <StyleChatDisplay  ref={bottomRef}> 
+    <StyleChatDisplay contactHidden={contactHidden} ref={bottomRef}> 
 
          {msgDataStore.map((msg)=>{
           return(

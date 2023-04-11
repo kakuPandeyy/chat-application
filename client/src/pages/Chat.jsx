@@ -2,7 +2,7 @@ import React, { useEffect,useState,useRef }  from 'react'
 import { useNavigate } from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import {CiLogout} from 'react-icons/ci'
-import { BiMenuAltRight } from 'react-icons/bi';
+import { AiOutlineDoubleLeft } from 'react-icons/ai';
 import logo from "../assets/logo.png";
 import axios from 'axios';
 import { getContactRouter,host } from '../utils/APIRoutes';
@@ -14,6 +14,8 @@ import Welcome from '../components/Welcome';
 import ChatContainer from './ChatContainer';
 import Search from '../components/Search';
 import { io } from 'socket.io-client';
+import {AiOutlineDoubleRight} from "react-icons/ai"
+import {CiMenuBurger} from "react-icons/ci"
 export const ReciveMsg = React.createContext() 
 export default function Chat() {
   const navigate = useNavigate()
@@ -29,9 +31,11 @@ export default function Chat() {
   const [searchFilter, setSearchFilter] = useState(undefined)
   const [ searchOn,setSearchOn ] = useState(false)
   const [arrivalMsg,setArrivalMsg] =useState()
-  const [adjustMoblie, setAdjustMoblie] = useState(false)
+
   const [showOnline,setShowOnline] = useState([])
+  const  [ contactHidden,setContactHidden] = useState(false)
   const [renderOnline,setRenderOnline] = useState(false)
+  const [ openMenu ,setOpenMenu]  =useState(false)
 const socket = useRef()
 
 async function logOut(){
@@ -45,12 +49,6 @@ async function logOut(){
 
 }
 
-
-useEffect(()=>{
- 
-  setAdjustMoblie(true) 
-  
-},[welcome])
 
 useEffect(()=>{
 
@@ -122,7 +120,7 @@ if (currentUserId) {
 
     socket.current.on("msgRecieve",(msgReciveData)=>{
       setArrivalMsg({ from: msgReciveData.from, fromSelf:false,message:msgReciveData.message})
-      
+     
     })
  
   }else{
@@ -136,16 +134,19 @@ if (currentUserId) {
   return (
   <>
  
- <ThemeProvider theme={theme} adjustMoblie={adjustMoblie} >
- <Conntainer  userThemeDark= {userThemeDark} myProfile= {myProfile} currentUserImage={currentUserImage} >
+ <ThemeProvider theme={theme}  >
+ <Conntainer  userThemeDark= {userThemeDark} myProfile= {myProfile} currentUserImage={currentUserImage}  contactHidden={contactHidden}  openMenu={openMenu}>
  
-
+ <ReciveMsg.Provider value={ {arrivalMsg,welcome,contactHidden}}>
 
   <div className="menu-column">
 
-  <div className="profile"></div>
-  <CiLogout className='logOut' onClick={logOut} />
-<Swich setuserThemeDark={setuserThemeDark} />
+
+<div className="profile"></div>
+<div> <CiLogout className='logOut' onClick={logOut} /></div>
+<div><Swich setuserThemeDark={setuserThemeDark} /></div>
+
+
   </div>
 
 <div className="brand">
@@ -155,28 +156,31 @@ if (currentUserId) {
   <div className="box">
  <div className="contact" >
   <div className="tital-bar">
+  <CiMenuBurger className ="menu" onClick={()=>  setOpenMenu(!openMenu)}/>
   <h2>chat</h2>
-  <BiMenuAltRight className='threeDot'/>
+
+  <AiOutlineDoubleLeft onClick={()=>setContactHidden(true)} className='threeDot'/>
 
   <Search setSearchInput={setSearchInput}/>
   </div>
 <div className="contact-list">
 
- <Contacts contact ={searchOn? searchFilter:contact} welcome={welcome} searchFilter={searchFilter} getSelected={getSelected} userThemeDark={userThemeDark} searchInput={searchInput} showOnline={showOnline} currentUserId={currentUserId}/>
+ <Contacts contact ={searchOn? searchFilter:contact} openMenu={openMenu} welcome={welcome} searchFilter={searchFilter} getSelected={getSelected} userThemeDark={userThemeDark} searchInput={searchInput} showOnline={showOnline} currentUserId={currentUserId}/>
 </div>
 
  </div>
 <div className="chat">
-<ReciveMsg.Provider value={ {arrivalMsg,welcome}}>
+
+<AiOutlineDoubleRight className='contactShower' onClick={()=>setContactHidden(false)}/>
   {welcome===undefined?<Welcome currentUserName ={currentUserName}  />
   :
-  <ChatContainer contact={contact} welcome={welcome} userThemeDark={userThemeDark} currentUserId={currentUserId} socket={socket.current} arrivalMsg={arrivalMsg} />  }
-</ReciveMsg.Provider>
+  <ChatContainer className="chatContainer" contact={contact} welcome={welcome} userThemeDark={userThemeDark} currentUserId={currentUserId} socket={socket.current} arrivalMsg={arrivalMsg} />  }
+
 
 </div>
 
  </div>
-
+ </ReciveMsg.Provider>
 
 
 

@@ -25,6 +25,10 @@ transition: 0.7s ease-in-out;
   box-shadow: 0px 0px 20px #9ae7d0;
   border:  8px groove #03fbffd3;
 }
+@media (max-width: 500px)  {
+  box-shadow: 0px 0px 20px #9ae7d0;
+  border:  8px groove #03fbffd3;
+}
 
 }
 
@@ -36,14 +40,19 @@ border: 2px solid ${theme.color.pattern.themeBlue};
 color:#ff5601e9;
 font-size:1.5rem;
 position:absolute;
-right:6px;
+right:15px;
 @media (min-width: 501px) and (max-width: 800px) {
   right:4px;
   bottom:0.3px;
   font-size:2.3rem;
   color:#ff5601e9;
 }
-
+@media (max-width: 500px)  {
+  right:4px;
+  bottom:0.3px;
+  font-size:2rem;
+  color:#ff5e01e9;
+}
 }
 
 color: white;

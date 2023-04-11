@@ -1,16 +1,14 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from 'styled-components'
 import theme from '../style/theme'
-// import  {MdCall}  from "react-icons/md"
-// import {FaVideo} from "react-icons/fa"
-// import {FcCallback} from "react-icons/fc"
+import {ReciveMsg} from "../pages/Chat"
 export default function ChatHeader({contact,welcome,userThemeDark,}) {
 
-
+  const {contactHidden} = useContext(ReciveMsg)
  
 
   return (
-    <HeaderStytle userThemeDark={userThemeDark} welcome={welcome} contact={contact} > 
+    <HeaderStytle userThemeDark={userThemeDark} welcome={welcome} contact={contact} contactHidden={contactHidden} > 
 
 
         <div className="contact-pic"></div>
@@ -30,9 +28,7 @@ top: 50px;
 left: 39%;
 display: flex;
 align-items: center;
-.callMoblie{
-display: none;
-}
+
 @media (min-width: 501px) and (max-width: 800px) {
 overflow: hidden;
 }
@@ -41,19 +37,27 @@ overflow: hidden;
 /* for Contact show */
 
 
-.callMoblie{
-display: flex;
-position: absolute;
-right: 10px;
-font-size: 2rem;
-color: #62CDFF;
-}
+
 position: fixed;
 left: 25%;
 top: 10px;
 
 border-radius: 2rem;
 height: 6rem;
+//test
+
+/* 
+left: 12%;
+top: 10px;
+
+border-radius: 2rem;
+height: 6rem;
+width: 88%; */
+${props => props.contactHidden &&`left: 12%;
+top: 10px;
+border-radius: 2rem;
+height: 6rem;
+width: 88%; `  } 
 }
 
 background-color: ${ props => props.userThemeDark?theme.color.back4:theme.color.blue3};

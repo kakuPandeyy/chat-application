@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 
 const StyleChatDisplay = styled.div`
+
+
  @media only screen and (max-width: 500px) {
 
 /* for Contact show */
@@ -20,12 +22,11 @@ padding: 1rem 0rem 0rem 4rem;
 overflow-x: hidden;
 overflow-y: scroll;
 flex-direction: column;
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
 
 /* for Contact show */
- 
-padding: 1rem 0rem 0rem 1rem;
 
+padding: 1rem 0rem 0rem 1.2rem;
 }
 gap: 1.2rem;
 &::-webkit-scrollbar{
@@ -38,7 +39,11 @@ gap: 1.2rem;
  bottom: 10px;
  height: 4.5rem;
  display: flex;
+ @media only screen and (max-width: 500px) {
 
+  height: 5rem;
+
+}
 }
 .message{
   display: flex;

@@ -4,7 +4,7 @@ import theme from '../style/theme';
 import StyledContacts from '../style/StyledContacts';
 import {RiRadioButtonLine} from 'react-icons/ri';
 
-export default function Contacts({contact,getSelected,userThemeDark,showOnline,openMenu}) {
+export default function Contacts({contact,getSelected,userThemeDark,showOnline,openMenu,setContactHidden}) {
   const [chatSelected,setChatSelected] = useState(undefined)
 
 function  justMe(){
@@ -24,6 +24,7 @@ justMe()
     return(
       <div index={index} className={`contact-container ${chatSelected===index?"selected-chat":"" }`} onClick={()=>{
         setChatSelected(index)
+        setContactHidden(true)
       }} >
        { contact.myProfile ? <img src={contact.avatarImage} alt=""  />:<img src={`data:image/svg+xml;base64,${contact.avatarImage}`} alt=""  />}  
  

@@ -8,6 +8,7 @@ display: flex;
 gap: 3rem;
 flex-direction: column;
 transition: 0.7s ease-in-out;
+
 @media only screen and (max-width: 500px) {
 
 
@@ -91,9 +92,6 @@ height: 100%;
 
 /* for Contact show */
 
-position: absolute;
-width: 5em;
-height: 5em;
 
 }
 }

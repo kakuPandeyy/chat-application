@@ -94,6 +94,8 @@ position: absolute;
   bottom: 0px;
   right: 0px;
 display: grid;
+
+grid-template-columns: 26% 74%;
 grid-template-columns: 26% 74%;
 gap: 2.8rem;
 
@@ -107,14 +109,17 @@ width: 100vw;
 grid-template-columns: 23% 77%;
 gap :0rem;
 
-
-
+// test 
+ grid-template-columns: 100% 0%;
+//1
+//TEST
 
 
 
 }
 
 .contact{
+
     user-select:none;
 position: relative;
 background-color:${ props => props.userThemeDark? theme.color.back4 :theme.color.blue3 };
@@ -136,9 +141,9 @@ overflow-y: scroll;
 .tital-bar{
 margin-top: 40px;
   display: flex;
- justify-content: center;
+ justify-content: flex-start;
  flex-direction: column;
- text-align: center;
+ margin-left:1rem;
  gap: 1.7rem;
  .menu{
   display:none;
@@ -162,13 +167,14 @@ margin-top: 40px;
  }
 }
  h2{
+ 
   color: white;
  font-size: 3rem;
  align-self: flex-start;
  margin-left: 2px;
  margin-top:2.5rem;
  @media only screen and (max-width: 500px) {
-font-size:1.4rem;
+font-size:3.5rem;
 align-self: flex-start;
  margin-left: 0px;
  padding:0;
@@ -211,7 +217,7 @@ transition: 0.6 ease-out;
   border-radius: 5rem 3rem;
   overflow-y: scroll;
   position: relative;
- 
+  ${props => !props.contactHidden &&`  display:none; `  } 
 .contactShower{
 
 

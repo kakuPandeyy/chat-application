@@ -159,24 +159,23 @@ if (currentUserId) {
   <CiMenuBurger className ="menu" onClick={()=>  setOpenMenu(!openMenu)}/>
   <h2>chat</h2>
 
-  <AiOutlineDoubleLeft onClick={()=>setContactHidden(true)} className='threeDot'/>
 
   <Search setSearchInput={setSearchInput}/>
   </div>
 <div className="contact-list">
 
- <Contacts contact ={searchOn? searchFilter:contact} openMenu={openMenu} welcome={welcome} searchFilter={searchFilter} getSelected={getSelected} userThemeDark={userThemeDark} searchInput={searchInput} showOnline={showOnline} currentUserId={currentUserId}/>
+ <Contacts contact ={searchOn? searchFilter:contact} openMenu={openMenu} welcome={welcome} searchFilter={searchFilter} getSelected={getSelected} userThemeDark={userThemeDark} searchInput={searchInput} showOnline={showOnline} currentUserId={currentUserId} setContactHidden={setContactHidden}/>
 </div>
 
  </div>
 <div className="chat">
 
-<AiOutlineDoubleRight className='contactShower' onClick={()=>setContactHidden(false)}/>
+<AiOutlineDoubleLeft className='contactShower' onClick={()=>setContactHidden(false)}/>
   {welcome===undefined?<Welcome currentUserName ={currentUserName}  />
   :
   <ChatContainer className="chatContainer" contact={contact} welcome={welcome} userThemeDark={userThemeDark} currentUserId={currentUserId} socket={socket.current} arrivalMsg={arrivalMsg} />  }
 
-
+ 
 </div>
 
  </div>

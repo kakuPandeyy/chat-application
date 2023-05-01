@@ -20,7 +20,7 @@ export default function SetAvatar() {
  const avatarApi = "https://api.multiavatar.com/";
 //  
 const [avatar,setAvatar] = useState([]);
-const [loading,setLoading] = useState(false);
+const [loading,setLoading] = useState(true);
 const [selectedAvatar,setSelectedAvatar] = useState(undefined);
 const [file,setFile] = useState();
 const [customPic,setCustomPic] = useState(false);
@@ -135,24 +135,29 @@ try{
     navigate("/login")
   }
   const data = [];
-
-  for (let i = 0; i < 5; i++) {
+   try{
+  for (let i = 0; i < 1; i++) {
    
-    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}`)
-
+    const image = await axios.get(`${avatarApi}/${Math.round(Math.random()*1000)}?${process.env.REACT_APP_AVATAR_URL}`)
     const buffer = new Buffer(image.data)
    data.push(buffer.toString("base64"))
    setAvatar(data)
-   setLoading(false)
    
-
   }
+  setLoading(false)
+}catch{
+  setLoading(false)
+}
+  
+
+
  
 }catch(ex){
 
 }
    
   }
+  fetchData()
   fetchData()
 },[])
 

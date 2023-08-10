@@ -1,18 +1,43 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import theme from '../style/theme'
 import {ReciveMsg} from "../pages/Chat"
-export default function ChatHeader({contact,welcome,userThemeDark,}) {
+import {FiPhoneCall} from "react-icons/fi"
 
-  const {contactHidden} = useContext(ReciveMsg)
- 
+
+export default function ChatHeader({contact,welcome,userThemeDark,socket,currentUserId}) {
+  
+
+  const localData=   JSON.parse(localStorage.getItem("chat-app-user")) 
+
+
+const daillerToReciverData =  {
+  "dailler_id":currentUserId,
+  "daillerName":localData.username,
+  "reciver_id":contact[welcome]._id,
+  "reciverName":contact[welcome].username,
+}
+
+
+
+const {contactHidden} = useContext(ReciveMsg)
+  const navigate = useNavigate()
+  const handleCall = ()=>{
+    navigate(`/Call`)
+  
+socket.emit("dialing:call",daillerToReciverData)
+
+  }
 
   return (
     <HeaderStytle userThemeDark={userThemeDark} welcome={welcome} contact={contact} contactHidden={contactHidden} > 
 
-
         <div className="contact-pic"></div>
         <div className="contact-username">{contact[welcome].username}</div>
+        <div className='callMoblie' onClick={()=>{  handleCall()  }} > 
+        <FiPhoneCall className=' call'/>
+        </div>
  </HeaderStytle>
 
   )
@@ -28,7 +53,18 @@ top: 50px;
 left: 39%;
 display: flex;
 align-items: center;
+.callMoblie{
+color: green;
+position: relative;
+left: 20em;
+ top: 10px;
+ cursor: pointer;
+ .call{
+  height: 50px;
+  width: 50px;
+ }
 
+}
 @media (min-width: 501px) and (max-width: 800px) {
 overflow: hidden;
 }
@@ -114,22 +150,22 @@ display:flex;
 gap: 3rem;
 justify-self:flex-end;
 align-self:center;
-position: absolute;
+position: relative;
 right:33%;
 top:44%;
 .callMoblie{
 display:none;
 }
-@media (min-width: 501px) and (max-width: 1200px) {
+/* @media (min-width: 501px) and (max-width: 1200px) {
 display:none;
 
-}
-@media only screen and (max-width: 500px) {
+} */
+/* @media only screen and (max-width: 500px) {
 
-/* for Contact show */
+
 display: none;
 
-}
+} */
 /* .callMoblie{
 display:flex;
 } */

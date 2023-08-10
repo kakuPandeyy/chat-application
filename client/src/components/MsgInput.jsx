@@ -10,7 +10,6 @@ import {ReciveMsg} from "../pages/Chat"
 
 
 
-
 export default function MsgInput({socket,userThemeDark,currentUserId,welcome,contact,msgAndStore}) {
   const [msgDataStore,setmsgDataStore]= useState([])
 

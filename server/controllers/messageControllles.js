@@ -40,9 +40,12 @@ const chat = await messageModele.find({chatBtw:{
         
         
     })
+
     res.json(projectedMsg)
-
-
+    
+    
+    
+    
     } catch (error) {
         next(error)
     }

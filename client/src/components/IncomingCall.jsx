@@ -6,16 +6,44 @@ import { useNavigate } from 'react-router-dom'
 import peeer from '../servies/peeer'
 
  
-export default  function IncomingCall({socket,setIncomingCallStatus,incomingCallData}) {
+export default  function IncomingCall({socket,setIncomingCallStatus,incomingCallData,setMyStreme}) {
 
 
   const navigation = useNavigate()
 
+ 
+  const sendStreme = async (streme)=>{
+
+  const tracks = await streme.getTracks()
+for(const track of tracks){
+  await peeer.peer.addTrack(track,streme)
+ console.log("i am donw");
+}
+
+}
+
+
+
+        const getLocalMedia = async ()=>{
+          try {
+            const streme = await navigator.mediaDevices.getUserMedia({
+              audio:true,
+              video:true,
+           })
+           sendStreme(streme)
+           setMyStreme(streme)
+           
+          } catch (error) {
+            console.log(error);
+          }
+           
+              }
 
   async function handleAnswer(){
   try {
-    
+    await getLocalMedia()
   const answer = await peeer.getAnswer(incomingCallData.data.offer)
+
    await  socket.emit("answer:accpected",{answer})
   
    navigation('/CallAnswer')

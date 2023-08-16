@@ -17,7 +17,7 @@ import IncomingCall from '../components/IncomingCall';
 import {CiMenuBurger} from "react-icons/ci"
 
 export const ReciveMsg = React.createContext() 
-export default function Chat({socket}) {
+export default function Chat({socket,setMyStreme}) {
   const navigate = useNavigate()
   const [userThemeDark,setuserThemeDark] = useState(false)
 
@@ -143,7 +143,7 @@ if (currentUserId) {
 
   return (
   <>
- { incomingCallStatus ? <IncomingCall incomingCallData={incomingCallData} socket= {socket.current} setIncomingCallStatus={setIncomingCallStatus} />: 
+ { incomingCallStatus ? <IncomingCall incomingCallData={incomingCallData} socket= {socket.current} setIncomingCallStatus={setIncomingCallStatus} setMyStreme={setMyStreme} />: 
  <ThemeProvider theme={theme}  >
  <Conntainer currentUserName={currentUserName} currentUserId={currentUserId}  userThemeDark= {userThemeDark} myProfile= {myProfile} currentUserImage={currentUserImage}  contactHidden={contactHidden}  openMenu={openMenu}>
  

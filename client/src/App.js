@@ -1,4 +1,4 @@
-import React,{useEffect, useRef} from 'react'
+import React,{useEffect, useRef,useState} from 'react'
 import { BrowserRouter,Routes,Route, } from 'react-router-dom';
 import Chat from './pages/Chat';
 import Login from './pages/Login';
@@ -11,11 +11,12 @@ import { host } from './utils/APIRoutes';
 import CallAnswer from './pages/CallAnswer';
 
 export default function App() {
- 
 
+  const [myStreme,setMyStreme] = useState(null)
 
   const socket = useRef()
   useEffect(()=>{
+
     socket.current = io(host)
   
   },[])
@@ -61,12 +62,12 @@ const peer =  new RTCPeerConnection(iceConfiguration)
     <BrowserRouter>
   
     <Routes>
-     <Route path='/' element={<Chat socket={socket} />} />
+     <Route path='/' element={<Chat socket={socket} setMyStreme={setMyStreme} />} />
      <Route path='/login' element={<Login/>} />
      <Route path='/register' element={<Register/>} />
      <Route path='/setAvatar' element={<SetAvatar/>} />
      <Route path='/Call' element={<Call socket={socket} iceConfiguration={iceConfiguration} peer={peer} />} />
-     <Route path='/CallAnswer' element={<CallAnswer peer={peer} socket={socket} />} />
+     <Route path='/CallAnswer' element={<CallAnswer peer={peer} socket={socket}  myStreme={myStreme}/>} />
     </Routes>
  
      </BrowserRouter>

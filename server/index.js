@@ -94,7 +94,7 @@ io.on("connect",async (socket)=>{
                 
                 if(sendUserSocket){
                     socket.to(sendUserSocket).emit("msgRecieve",data)
-                 console.log(data)
+               
                 } 
             } catch (error) {
                 console.log(error)
@@ -106,7 +106,6 @@ io.on("connect",async (socket)=>{
     }
 
     try {
-      
         socket.on("dialing:call",async ({reciver_id,reciverName,daillerName,dailler_id})=>{
             dailerId = dailler_id
            
@@ -121,9 +120,7 @@ io.on("connect",async (socket)=>{
                try {
                 await socket.on("outgoing:call",(data)=>{
                 console.log(data);
-                    socket.to(reciverSocketId).emit("incoming:call",{data:data,daillerName:daillerName})
-
-                   
+                    socket.to(reciverSocketId).emit("incoming:call",{data:data,daillerName:daillerName})                   
                 })
                 await socket.on("peer:nego:needed", async(data)=>{
                    

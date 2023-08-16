@@ -2,12 +2,12 @@
 const iceConfiguration = {
     iceServers: [
       {
-        urls: "stun:stun.relay.metered.ca:80",
+        urls: process.env.REACT_APP_IceConfiguration_URL,
       },
       {
-        urls: "turn:a.relay.metered.ca:80",
-        username: "650f76d9dd8224a9af1ba00c",
-        credential: "yiemxruOaAmNMgOb",
+        urls: process.env.REACT_APP_IceConfiguration_URL_Two ,
+        username: process.env.REACT_APP_IceConfiguration_Username,
+        credential: process.env.REACT_APP_IceConfiguration_credential,
       },
       // {
       //   urls: "turn:a.relay.metered.ca:80?transport=tcp",

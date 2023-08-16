@@ -1,10 +1,12 @@
 import React,{useState , useEffect } from 'react';
-import theme from '../style/theme';
+
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import ReactPlayer from "react-player"
 import peeer from '../servies/peeer';
-
+import {MdCallEnd} from "react-icons/md"
+import {BsMicFill} from "react-icons/bs"
+import {FaVideo} from "react-icons/fa"
 export default function Call({socket}) {
  
   const [callDiaing,setCallDialing] = useState(false)
@@ -30,7 +32,7 @@ const [signalingStable, setSignalingStable] = useState(false)
     await peeer.setLocalDescription(data.answer)
     
 
- 
+    
 
 
  
@@ -120,12 +122,12 @@ async function statusCheck() {
   
 
   const sendStreme = async (streme)=>{
-
-    const tracks = streme.getTracks()
-  for(const track of tracks){
+    const tracks = await streme.getTracks()
+   for(const track of tracks){
     peeer.peer.addTrack(track,streme)
-   console.log(" i added the tracks");
+ console.log("stream",track,streme);
   }
+  
 
   }
 
@@ -164,13 +166,24 @@ async function statusCheck() {
 
 
 
-           const handleTracks = async (ev)=>{
-           alert(" i am working")
-           console.log("handleTracksWorking", ev);
-           }
+          //  const handleTracks = async (ev)=>{
+          //  alert(" i am working")
+          //  console.log("handleTracksWorking", ev);
+          //  }
 
           
+
            
+          useEffect(() => {
+            peeer.peer.addEventListener("track", async (ev) => {
+              const remoteStream = ev.streams;
+
+             
+              setRemoteStreme(remoteStream[0]);
+              setCallDialing(true)
+            });
+          }, []);
+
 //to: remoteSocketId
   useEffect(()=>{
     console.log( " only one");
@@ -178,14 +191,14 @@ async function statusCheck() {
     getLocalMedia()
 
     peeer.peer.addEventListener("negotiationneeded", handleNegotiotionneeded);
-    // peeer.peer.addEventListener("track",()=>{
-    //   console.log("handle tracks");
-    // })
-    // peerConnection.ontrack = event => {
-    //   const remoteStream = event.streams[0];
-    //   // Display or process the remote audio and video streams (remoteStream)
-    // };
-    peeer.peer.ontrack = handleTracks
+    peeer.peer.oniceconnectionstatechange = function() {
+      if(peeer.peer.iceConnectionState === 'disconnected') {
+         alert("disconnected peer")
+         navigation("/")
+      }else{
+        console.log(peeer.peer.iceConnectionState);
+      }
+  }
 return ()=>{   
 
   peeer.peer.removeEventListener("negotiationneeded", handleNegotiotionneeded);
@@ -193,6 +206,7 @@ return ()=>{
     
 
   },[])
+
 
 
  function handleRejectShow() {
@@ -209,13 +223,31 @@ return ()=>{
 
   
              
-        
+const disconnectButton = async()=>{
+
+
+
+  peeer.peer.close()
+
+  navigation("/")
+}
+       
+const handleMuteAudio = ()=>{
+
+}
+const handleMuteVideo = ()=>{
+
+}
  
 
 
   return (
     <CallStyle> 
-    {callDiaing?  <div className='remotePerson'></div> : <div className="dialing">
+   
+    {callDiaing?
+      <div className='remotePerson'> 
+    {  myStreme ? <ReactPlayer width="100%" height="100%" playing="false" url={remoteStreme} />: <h1> not avalaable</h1> }
+      </div> : <div className="dialing">
     
      {callingStatus} 
   
@@ -223,12 +255,15 @@ return ()=>{
     </div> 
    
     }
+    <div className="disconnect" onClick={disconnectButton}> 
+   <MdCallEnd/>
+   </div>
+   <div className="mic" onClick={handleMuteAudio}> <BsMicFill/></div>
+   <div className="video" onClick={handleMuteVideo}> <FaVideo/> </div>
 
-   
-   
-    <div className="localPerson">
-    
-    <ReactPlayer width="500px" height="300px" playing="false" url={myStreme} /></div>
+   <div className="cover"></div>
+   <div className="localPerson">
+   <ReactPlayer width="250px" height="250px" playing="false" url={myStreme} /></div>
 
      </CallStyle>
     
@@ -236,11 +271,34 @@ return ()=>{
 }
 const CallStyle = styled.div`
 
+
 .localPerson{
  position: absolute;
 bottom: 3rem;
 right: 1rem;
+border-radius: 10%;
 
+}
+.disconnect{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  background-color: #FF6666;
+  bottom: 5%;
+left: 10%;
+font-size: 2rem;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px dotted white;
+@media only screen and (max-width: 600px) {
+  height: 90px;
+  width: 90px;
+  bottom: 3%;
+  left: 1%;
+}
 }
 .remotePerson{
     position: absolute;
@@ -248,7 +306,64 @@ right: 1rem;
     top: 0px;
     height: 75%;
     width: 100%;
-    background-color: red;
+    overflow: hidden;
+    background: #232526;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+
+  background: #232526;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.mic{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  bottom: 5%;
+left: 30%;
+font-size: 2rem;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+&:hover{
+  color: red;
+}
+@media only screen and (max-width: 600px) {
+  height: 50px;
+  width: 50px;
+  bottom: 3%;
+}
+}
+.video{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  bottom: 5%;
+left: 50%;
+font-size: 2rem;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+&:hover{
+  color: red;
+}
+@media only screen and (max-width: 600px) {
+  height: 50px;
+  width: 50px;
+  bottom: 3%;
+}
 }
 .dialing{
 
@@ -262,7 +377,19 @@ position: absolute;
 display: flex;
 justify-content: center;
 align-items: center;
-background-color: ${theme.color.back4};
 color: aliceblue;
+background: #232526;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 `
+// if (pc.addTrack !== undefined) {
+//   pc.ontrack = (ev) => {
+//     ev.streams.forEach((stream) => doAddStream(stream));
+//   };
+// } else {
+//   pc.onaddstream = (ev) => {
+//     doAddStream(ev.stream);
+//   };
+// }

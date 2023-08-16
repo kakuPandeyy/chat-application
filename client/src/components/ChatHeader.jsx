@@ -153,22 +153,21 @@ align-self:center;
 position: relative;
 right:33%;
 top:44%;
-.callMoblie{
-display:none;
+@media (min-width: 501px) and (max-width: 800px) {
+  
+  position:fixed;
+  right:5px;
+  top: 50px;
+
+
 }
-/* @media (min-width: 501px) and (max-width: 1200px) {
-display:none;
+ @media only screen and (max-width: 500px) {
+position:fixed;
+  right:1px;
+top: 1px;
 
-} */
-/* @media only screen and (max-width: 500px) {
+} 
 
-
-display: none;
-
-} */
-/* .callMoblie{
-display:flex;
-} */
 }
 
 `

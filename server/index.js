@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
+const cloudinary = require('cloudinary').v2;
 var cors = require("cors");
 const registerRoute = require("./routes/userRoutes")
 const messageRoute = require("./routes/messageRoute");
@@ -18,6 +19,34 @@ mongoose.connect(process.env.MONGO_URL,{
 })
 
 app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SCRATE,
+});
+
+
+app.post('/get-signature', (req, res) => {
+  const timestamp = Math.round((new Date).getTime() / 1000);
+
+  const signature = cloudinary.utils.api_sign_request(
+    {
+      timestamp: timestamp,
+    },
+    cloudinary.config().api_secret
+  );
+
+  res.json({
+    timestamp,
+    signature,
+    apiKey: cloudinary.config().api_key,
+    cloudName: cloudinary.config().cloud_name,
+   
+  });
+});
+
+
 app.use("/api/auth",registerRoute)
 app.use("/api/message",messageRoute)
 
@@ -27,7 +56,7 @@ const server =  app.listen(process.env.PORT,()=>{
 
 const io = socket(server,{
     cors:{
-        origin:process.env.CLIENT_URL,
+        origin:"*",
         credentials:true
     }
 })
@@ -62,7 +91,6 @@ io.on("connect",async (socket)=>{
     socket.on("addUser",(userId)=>{
         onlineUser.set(userId,socket.id)
         
-  var dailerId;
 
         try {
             const onlinePeople = Object.fromEntries(onlineUser)
@@ -105,73 +133,8 @@ io.on("connect",async (socket)=>{
         console.log(error)
     }
 
-    try {
-        socket.on("dialing:call",async ({reciver_id,reciverName,daillerName,dailler_id})=>{
-            dailerId = dailler_id
-           
-            const onlinePeople = Object.fromEntries(onlineUser)
-            const onlinePeopleIds = Object.keys(onlinePeople)
-        
-            if(onlinePeopleIds.indexOf(reciver_id) !== -1) { 
-                const  reciverSocketId =  await onlineUser.get(reciver_id)
-                const  daillerSocketId =  await onlineUser.get(dailler_id)
   
-               await socket.emit("connection:check",{ status:"calling...",reciver_id:reciver_id,  reciverName:reciverName,daillerName:daillerName,dailler_id:dailler_id,})
-               try {
-                await socket.on("outgoing:call",(data)=>{
-                console.log(data);
-                    socket.to(reciverSocketId).emit("incoming:call",{data:data,daillerName:daillerName})                   
-                })
-                await socket.on("peer:nego:needed", async(data)=>{
-                   
-                   await socket.to(reciverSocketId).emit("peer:incoming:nego",{data:data,daillerSocketId:daillerSocketId})
-                   console.log("peer:nego:needed is working");
-                });
-              
-               } catch (error) {
-                console.log(error);
-               }
-           }   
-       else   {  
-        
-      await  socket.emit("connection:check",{status:"OFFLINE"}) }  
 
-        }
-        )
-     } catch (error) {
-        console.log(error)
-       }
-  try {
-    await  socket.on("call:rejected",async(daillerId)=>{
-const  daillerSocketId =  await onlineUser.get(dailerId)
-
-      socket.to(daillerSocketId).emit("reject:show",{status:'REJECTED'})
-      
-    })
-  } catch (error) {
-    console.log(error);
-  }   
-try {
-    socket.on("answer:accpected", async(data)=>{
-   
-        const  daillerSocketId =  await onlineUser.get(dailerId)
-        socket.to(daillerSocketId).emit("answer:accpected:emiter",data)
-        
-    })
-    //nego:incoming:accepted
-    
-} catch (error) {
-    console.log(error);
-}
-try {
-    socket.on("nego:incoming:accepted",async(data)=>{
-      
-await socket.to(data.to).emit("nego:incoming:final",{data})
-console.log("went succense fully");
-    })
-} catch (error) {
-    
-}
 
 })
  

@@ -26,7 +26,7 @@ justMe()
         setChatSelected(index)
         setContactHidden(true)
       }} >
-       { contact.myProfile ? <img src={contact.avatarImage} alt=""  />:<img src={`data:image/svg+xml;base64,${contact.avatarImage}`} alt=""  />}  
+       { contact.myProfile ? <img src={contact.avatarImage} alt=""  />:<img src={contact.avatarImage} alt=""  />}  
  
 <div className="username"><h3>{contact.username}</h3></div>
    {showOnline.map((v)=>{

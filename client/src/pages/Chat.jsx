@@ -13,11 +13,14 @@ import Conntainer from '../style/ChatStyle';
 import Welcome from '../components/Welcome'; 
 import ChatContainer from './ChatContainer';
 import Search from '../components/Search';
-import IncomingCall from '../components/IncomingCall';
+
 import {CiMenuBurger} from "react-icons/ci"
 
 export const ReciveMsg = React.createContext() 
-export default function Chat({socket,setMyStreme}) {
+export default function Chat({socket}) {
+
+
+  
   const navigate = useNavigate()
   const [userThemeDark,setuserThemeDark] = useState(false)
 
@@ -33,11 +36,10 @@ export default function Chat({socket,setMyStreme}) {
   const [arrivalMsg,setArrivalMsg] =useState()
 
   const [showOnline,setShowOnline] = useState([])
-  const  [ contactHidden,setContactHidden] = useState(false)
+  const  [ contactHidden,setContactHidden] = useState(true)
   const [renderOnline,setRenderOnline] = useState(false)
   const [ openMenu ,setOpenMenu]  =useState(false)
-  const [incomingCallStatus,setIncomingCallStatus] = useState(false)
-  const [incomingCallData,setIncomingCallData] = useState({})
+
 
 async function logOut(){
   try {
@@ -52,7 +54,7 @@ async function logOut(){
 
 
 useEffect(()=>{
-  setIncomingCallStatus(false)
+
     if ( !localStorage.getItem("chat-app-user")) {
         navigate("/login")
        }else{
@@ -115,17 +117,12 @@ if (currentUserId) {
   socket.current.on("showOnline",(onlineData)=>{
      
     setShowOnline(onlineData)
+    console.log(onlineData);
+    
 
 
   })
-  socket.current.on("incoming:call",(data)=>{
 
-    setIncomingCallStatus(true)
-    console.log("radha");
-    console.log(data);
-    setIncomingCallData(data)
- 
-  })
  
     socket.current.on("msgRecieve",(msgReciveData)=>{
       setArrivalMsg({ from: msgReciveData.from, fromSelf:false,message:msgReciveData.message})
@@ -143,7 +140,6 @@ if (currentUserId) {
 
   return (
   <>
- { incomingCallStatus ? <IncomingCall incomingCallData={incomingCallData} socket= {socket.current} setIncomingCallStatus={setIncomingCallStatus} setMyStreme={setMyStreme} />: 
  <ThemeProvider theme={theme}  >
  <Conntainer currentUserName={currentUserName} currentUserId={currentUserId}  userThemeDark= {userThemeDark} myProfile= {myProfile} currentUserImage={currentUserImage}  contactHidden={contactHidden}  openMenu={openMenu}>
  
@@ -197,7 +193,7 @@ if (currentUserId) {
 
  </Conntainer>
 
- </ThemeProvider>}
+ </ThemeProvider>
   </>
   )
 }

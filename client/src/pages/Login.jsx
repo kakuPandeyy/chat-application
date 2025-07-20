@@ -39,6 +39,7 @@ function LogIn() {
        await localStorage.setItem("chat-app-user",JSON.stringify(data.user));
         navigate("/")
        }else{
+      
         toast.error(data.msg,toastOptions)
 
        }

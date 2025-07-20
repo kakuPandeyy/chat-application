@@ -72,12 +72,15 @@ if(!isPasswordValid){
 
     try {
       const data =  req.body
+      
+      
       const userData = await User.findByIdAndUpdate(data.id,{
       avatarImage:data.image,
       isAvatarImageSet: true,
       myProfile: data.custom
       })
-  
+   
+    
       return ( res.json({userData,setStatus:true}) )
     } catch (ex) {
       next(ex)

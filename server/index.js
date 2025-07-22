@@ -55,12 +55,13 @@ const server =  app.listen(process.env.PORT,()=>{
 })
 
 const io = socket(server,{
-    origin: [
-      "http://localhost:3000",            // Dev
-      "https://chat0-kaku.netlify.app/"            // Production
-    ],
-    credentials: true,
-    methods: ["GET", "POST"]
+    cors:{
+        origin:[
+            "http://localhost:3000",
+            "https://chat0-kaku.netlify.app"
+        ],
+        credentials:true
+    }
 })
 
 global.onlineUser = new Map();

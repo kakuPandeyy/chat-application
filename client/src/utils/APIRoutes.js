@@ -1,4 +1,4 @@
-export const host = `https://chat-application-server-z3we.onrender.com`;
+export const host = process.env.REACT_APP_SERVER_URL;
 export const  registerRoute = `${host}/api/auth/register`
 export const  logInRouter = `${host}/api/auth/login`
 export const  setAvatarRouter = `${host}/api/auth/setAvatar`

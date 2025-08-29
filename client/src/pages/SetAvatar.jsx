@@ -62,9 +62,11 @@ const [urlImg, setUrlImg] = useState()
 
   async  function setProfilePic() {
 
-
-     const { data: sigData } = await axios.post(`${host}/get-signature`);
-       const formData = new FormData();
+    try{
+    
+          setLoading(true)
+    const { data: sigData } = await axios.post(`${host}/get-signature`);
+    const formData = new FormData();
     formData.append('file', file);
     formData.append('api_key', sigData.apiKey);
     formData.append('signature', sigData.signature);
@@ -91,6 +93,8 @@ const [urlImg, setUrlImg] = useState()
   custom:true
  } )
 
+ 
+
 
  
  
@@ -98,6 +102,7 @@ const [urlImg, setUrlImg] = useState()
    
    data.userData.avatarImage = url
   
+   setLoading(false)
    await localStorage.setItem("chat-app-user",JSON.stringify(data.userData))
   await navigate("/")
 
@@ -106,6 +111,15 @@ const [urlImg, setUrlImg] = useState()
    }
 
     }
+
+
+    }catch(e){
+    
+      setLoading(false)
+    }
+
+  
+
     
  
   }
